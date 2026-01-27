@@ -22,8 +22,34 @@ if command -v aerospace &> /dev/null; then
     echo "✓ Aerospace found at: $AEROSPACE_PATH"
 else
     echo "✗ Aerospace not found!"
-    echo "  Install with: brew install nikitabobko/tap/aerospace"
-    exit 1
+    echo
+    echo "AeroSpace is required for this setup to work."
+    echo "Install it first using Homebrew:"
+    echo
+    echo "  brew install --cask nikitabobko/tap/aerospace"
+    echo
+    read -p "Would you like to install AeroSpace now? (y/N): " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        if command -v brew &> /dev/null; then
+            echo "Installing AeroSpace via Homebrew..."
+            brew install --cask nikitabobko/tap/aerospace
+            AEROSPACE_PATH=$(command -v aerospace)
+            if [ -z "$AEROSPACE_PATH" ]; then
+                echo "✗ Installation succeeded but aerospace command not found in PATH"
+                echo "  You may need to restart your terminal or add it to your PATH"
+                exit 1
+            fi
+            echo "✓ AeroSpace installed at: $AEROSPACE_PATH"
+        else
+            echo "✗ Homebrew not found!"
+            echo "  Install Homebrew first: https://brew.sh"
+            exit 1
+        fi
+    else
+        echo "Please install AeroSpace and run this installer again."
+        exit 1
+    fi
 fi
 
 # Check for Alfred
