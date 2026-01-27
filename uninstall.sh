@@ -6,6 +6,8 @@ set -e
 
 AEROSPACE_CONFIG_DIR="$HOME/.config/aerospace"
 ALFRED_WORKFLOW="$HOME/Library/Application Support/Alfred/Alfred.alfredpreferences/workflows/user.workflow.cursor-project-switcher"
+FOCUS_SYMLINK="$HOME/.claude/focus-window.sh"
+FOCUS_TARGET="$AEROSPACE_CONFIG_DIR/notification-focus-window.sh"
 
 echo "Aerospace Setup Uninstaller"
 echo "==========================="
@@ -15,6 +17,7 @@ echo "This will remove:"
 echo "  - ~/.aerospace.toml"
 echo "  - ~/.config/aerospace/ (scripts and config)"
 echo "  - Alfred Cursor Project Switcher workflow"
+echo "  - ~/.claude/focus-window.sh symlink (if it points to our script)"
 echo
 
 read -p "Continue? (y/N): " -n 1 -r
@@ -48,6 +51,19 @@ if [ -d "$ALFRED_WORKFLOW" ]; then
     echo "✓ Removed Alfred workflow"
 else
     echo "  Alfred workflow not found"
+fi
+
+# Remove focus-window.sh symlink (only if it points to our script)
+if [ -L "$FOCUS_SYMLINK" ]; then
+    CURRENT_TARGET=$(readlink "$FOCUS_SYMLINK")
+    if [ "$CURRENT_TARGET" = "$FOCUS_TARGET" ]; then
+        rm "$FOCUS_SYMLINK"
+        echo "✓ Removed $FOCUS_SYMLINK symlink"
+    else
+        echo "  $FOCUS_SYMLINK points to different target, not removing"
+    fi
+else
+    echo "  $FOCUS_SYMLINK not found or not a symlink"
 fi
 
 echo

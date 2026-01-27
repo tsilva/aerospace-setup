@@ -22,6 +22,7 @@
 - **Alfred integration** - Switch to any Cursor project by typing `p <project>`
 - **Project priorities** - Define which projects get lower workspace numbers
 - **Cross-platform paths** - Auto-detects Homebrew location (Apple Silicon or Intel)
+- **Notification integration** - Provides click-to-focus for [claude-code-notify](https://github.com/tsilva/claude-code-notify)
 
 ## 📦 Installation
 
@@ -46,8 +47,9 @@ The installer will:
 1. Check for Aerospace and Alfred
 2. Copy `aerospace.toml` to `~/.aerospace.toml`
 3. Install helper scripts to `~/.config/aerospace/`
-4. Set up the Alfred workflow for project switching
-5. Reload Aerospace configuration
+4. Create symlink `~/.claude/focus-window.sh` for notification integration
+5. Set up the Alfred workflow for project switching
+6. Reload Aerospace configuration
 
 ## ⌨️ Keybindings
 
@@ -72,7 +74,8 @@ aerospace-setup/
 ├── scripts/
 │   ├── aerospace-fix-cursor.sh   # Organize Cursor windows
 │   ├── list-cursor-windows.sh    # Alfred script filter
-│   └── focus-window.sh           # Focus window by ID
+│   ├── focus-window.sh           # Focus window by ID (Alfred)
+│   └── notification-focus-window.sh  # Focus window by workspace name (notifications)
 └── alfred/
     └── cursor-project-switcher/
         └── info.plist            # Alfred workflow
@@ -98,6 +101,22 @@ Apps are automatically moved to workspace 1:
 - Chrome, Obsidian, ChatGPT, Claude, Sublime Text, WhatsApp
 
 Edit `~/.aerospace.toml` to customize.
+
+## 🔔 Claude Code Notification Integration
+
+This setup provides window-focusing support for [claude-code-notify](https://github.com/tsilva/claude-code-notify), enabling click-to-focus from desktop notifications.
+
+The installer creates a symlink:
+```
+~/.claude/focus-window.sh → ~/.config/aerospace/notification-focus-window.sh
+```
+
+When you click a Claude Code notification, it uses this symlink to:
+1. Find the Cursor/VS Code window matching the workspace name
+2. Switch to that window's AeroSpace workspace
+3. Focus the window
+
+This works reliably on macOS Sequoia where traditional AppleScript/Hammerspoon APIs fail.
 
 ## 🗑️ Uninstall
 

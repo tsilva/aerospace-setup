@@ -7,6 +7,7 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 AEROSPACE_CONFIG_DIR="$HOME/.config/aerospace"
 ALFRED_WORKFLOWS_DIR="$HOME/Library/Application Support/Alfred/Alfred.alfredpreferences/workflows"
+CLAUDE_DIR="$HOME/.claude"
 
 echo "Aerospace Setup Installer"
 echo "========================="
@@ -39,7 +40,9 @@ echo
 # Create directories
 echo "Creating directories..."
 mkdir -p "$AEROSPACE_CONFIG_DIR"
+mkdir -p "$CLAUDE_DIR"
 echo "✓ Created $AEROSPACE_CONFIG_DIR"
+echo "✓ Created $CLAUDE_DIR"
 echo
 
 # Copy aerospace.toml
@@ -95,6 +98,44 @@ else
 fi
 echo
 
+# Create symlink for Claude Code notification integration
+echo "Setting up Claude Code integration..."
+FOCUS_SYMLINK="$CLAUDE_DIR/focus-window.sh"
+FOCUS_TARGET="$AEROSPACE_CONFIG_DIR/notification-focus-window.sh"
+
+if [ -L "$FOCUS_SYMLINK" ]; then
+    CURRENT_TARGET=$(readlink "$FOCUS_SYMLINK")
+    if [ "$CURRENT_TARGET" = "$FOCUS_TARGET" ]; then
+        echo "✓ Symlink already exists: $FOCUS_SYMLINK -> $FOCUS_TARGET"
+    else
+        echo "  Existing symlink points to: $CURRENT_TARGET"
+        read -p "  Replace with aerospace-setup symlink? (y/N): " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            rm "$FOCUS_SYMLINK"
+            ln -s "$FOCUS_TARGET" "$FOCUS_SYMLINK"
+            echo "✓ Created symlink: $FOCUS_SYMLINK -> $FOCUS_TARGET"
+        else
+            echo "  Skipped (keeping existing symlink)"
+        fi
+    fi
+elif [ -f "$FOCUS_SYMLINK" ]; then
+    echo "  Existing file found at $FOCUS_SYMLINK"
+    read -p "  Replace with symlink? (y/N): " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        rm "$FOCUS_SYMLINK"
+        ln -s "$FOCUS_TARGET" "$FOCUS_SYMLINK"
+        echo "✓ Created symlink: $FOCUS_SYMLINK -> $FOCUS_TARGET"
+    else
+        echo "  Skipped (keeping existing file)"
+    fi
+else
+    ln -s "$FOCUS_TARGET" "$FOCUS_SYMLINK"
+    echo "✓ Created symlink: $FOCUS_SYMLINK -> $FOCUS_TARGET"
+fi
+echo
+
 # Install Alfred workflow
 if [ -n "$ALFRED_WORKFLOWS_DIR" ]; then
     echo "Installing Alfred workflow..."
@@ -129,6 +170,7 @@ echo "  alt+f       Toggle fullscreen"
 echo "  p <project> Alfred: switch to Cursor project"
 echo
 echo "Configuration files:"
-echo "  ~/.aerospace.toml                      Main config"
-echo "  ~/.config/aerospace/cursor-projects.txt Project priorities"
-echo "  ~/.config/aerospace/*.sh               Helper scripts"
+echo "  ~/.aerospace.toml                        Main config"
+echo "  ~/.config/aerospace/cursor-projects.txt  Project priorities"
+echo "  ~/.config/aerospace/*.sh                 Helper scripts"
+echo "  ~/.claude/focus-window.sh                Notification focus (symlink)"
