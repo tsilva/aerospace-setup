@@ -1,10 +1,11 @@
 <div align="center">
+  <img src="logo.png" alt="aerospace-setup" width="512"/>
 
 # aerospace-setup
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/tsilva/aerospace-setup/blob/main/LICENSE)
 [![macOS](https://img.shields.io/badge/macOS-Sonoma+-black?logo=apple)](https://github.com/nikitabobko/AeroSpace)
-[![Shell](https://img.shields.io/badge/Shell-Bash-4EAA25?logo=gnu-bash&logoColor=white)](scripts/)
+[![Shell](https://img.shields.io/badge/Shell-Bash-4EAA25?logo=gnu-bash&logoColor=white)](https://github.com/tsilva/aerospace-setup/tree/main/scripts)
 
 **🚀 Portable Aerospace configuration with Cursor project switching via Alfred**
 
