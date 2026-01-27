@@ -1,0 +1,57 @@
+#!/bin/bash
+# Aerospace Setup Uninstaller
+# Removes aerospace configuration, scripts, and Alfred workflow
+
+set -e
+
+AEROSPACE_CONFIG_DIR="$HOME/.config/aerospace"
+ALFRED_WORKFLOW="$HOME/Library/Application Support/Alfred/Alfred.alfredpreferences/workflows/user.workflow.cursor-project-switcher"
+
+echo "Aerospace Setup Uninstaller"
+echo "==========================="
+echo
+
+echo "This will remove:"
+echo "  - ~/.aerospace.toml"
+echo "  - ~/.config/aerospace/ (scripts and config)"
+echo "  - Alfred Cursor Project Switcher workflow"
+echo
+
+read -p "Continue? (y/N): " -n 1 -r
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Cancelled."
+    exit 0
+fi
+
+echo
+
+# Remove aerospace.toml
+if [ -f "$HOME/.aerospace.toml" ]; then
+    rm "$HOME/.aerospace.toml"
+    echo "✓ Removed ~/.aerospace.toml"
+else
+    echo "  ~/.aerospace.toml not found"
+fi
+
+# Remove scripts directory
+if [ -d "$AEROSPACE_CONFIG_DIR" ]; then
+    rm -rf "$AEROSPACE_CONFIG_DIR"
+    echo "✓ Removed $AEROSPACE_CONFIG_DIR"
+else
+    echo "  $AEROSPACE_CONFIG_DIR not found"
+fi
+
+# Remove Alfred workflow
+if [ -d "$ALFRED_WORKFLOW" ]; then
+    rm -rf "$ALFRED_WORKFLOW"
+    echo "✓ Removed Alfred workflow"
+else
+    echo "  Alfred workflow not found"
+fi
+
+echo
+echo "Uninstall complete."
+echo
+echo "Note: Aerospace itself is not uninstalled."
+echo "To fully remove: brew uninstall aerospace"
