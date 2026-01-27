@@ -41,6 +41,11 @@ else
                 exit 1
             fi
             echo "✓ AeroSpace installed at: $AEROSPACE_PATH"
+            echo
+            echo "Starting AeroSpace..."
+            open -a AeroSpace
+            sleep 2  # Give AeroSpace time to start
+            echo "✓ AeroSpace started"
         else
             echo "✗ Homebrew not found!"
             echo "  Install Homebrew first: https://brew.sh"

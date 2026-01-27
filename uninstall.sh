@@ -66,7 +66,17 @@ else
     echo "  $FOCUS_SYMLINK not found or not a symlink"
 fi
 
-echo
+# Reload aerospace config if aerospace is still installed
+if command -v aerospace &> /dev/null; then
+    echo "Reloading aerospace configuration..."
+    if aerospace reload-config 2>/dev/null; then
+        echo "✓ Configuration reloaded"
+    else
+        echo "⚠ Could not reload config (aerospace may not be running)"
+    fi
+    echo
+fi
+
 echo "Uninstall complete."
 echo
 echo "Note: Aerospace itself is not uninstalled."
