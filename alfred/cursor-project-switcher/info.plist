@@ -58,7 +58,7 @@
 				<key>runningsubtext</key>
 				<string>Loading Cursor windows...</string>
 				<key>script</key>
-				<string>/bin/bash __HOME__/.config/aerospace/list-cursor-windows.sh</string>
+				<string>/bin/bash __HOME__/.config/aerospace/list-all-repos.sh</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
