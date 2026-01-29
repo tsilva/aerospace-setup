@@ -37,8 +37,12 @@ alt-shift-9 = 'move-node-to-workspace 9'
 alt-right = 'workspace next'
 alt-left = 'workspace prev'
 
-# Fix Cursor windows (run after opening Cursor)
-alt-c = 'exec-and-forget ~/.config/aerospace/aerospace-fix-cursor.sh'
+# Sort/organize Cursor windows into workspaces
+alt-shift-s = 'exec-and-forget ~/.config/aerospace/aerospace-fix-cursor.sh'
+
+# Alfred workflows
+alt-p = ['exec-and-forget osascript -e "tell application \"Alfred 5\" to search \"p \""']
+alt-shift-c = ['exec-and-forget osascript -e "tell application \"Alfred 5\" to search \"c \""']
 
 # Fullscreen toggle (hides other windows in workspace)
 alt-f = 'fullscreen'

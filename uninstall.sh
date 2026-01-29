@@ -6,6 +6,7 @@ set -e
 
 AEROSPACE_CONFIG_DIR="$HOME/.config/aerospace"
 ALFRED_WORKFLOW="$HOME/Library/Application Support/Alfred/Alfred.alfredpreferences/workflows/user.workflow.cursor-project-switcher"
+ALFRED_CAPTURE_WORKFLOW="$HOME/Library/Application Support/Alfred/Alfred.alfredpreferences/workflows/user.workflow.quick-idea-capture"
 FOCUS_SYMLINK="$HOME/.claude/focus-window.sh"
 FOCUS_TARGET="$AEROSPACE_CONFIG_DIR/notification-focus-window.sh"
 
@@ -17,6 +18,7 @@ echo "This will remove:"
 echo "  - ~/.aerospace.toml"
 echo "  - ~/.config/aerospace/ (scripts and config)"
 echo "  - Alfred Cursor Project Switcher workflow"
+echo "  - Alfred Quick Idea Capture workflow"
 echo "  - ~/.claude/focus-window.sh symlink (if it points to our script)"
 echo
 
@@ -45,12 +47,19 @@ else
     echo "  $AEROSPACE_CONFIG_DIR not found"
 fi
 
-# Remove Alfred workflow
+# Remove Alfred workflows
 if [ -d "$ALFRED_WORKFLOW" ]; then
     rm -rf "$ALFRED_WORKFLOW"
-    echo "✓ Removed Alfred workflow"
+    echo "✓ Removed Alfred Cursor Project Switcher workflow"
 else
-    echo "  Alfred workflow not found"
+    echo "  Alfred Cursor Project Switcher workflow not found"
+fi
+
+if [ -d "$ALFRED_CAPTURE_WORKFLOW" ]; then
+    rm -rf "$ALFRED_CAPTURE_WORKFLOW"
+    echo "✓ Removed Alfred Quick Idea Capture workflow"
+else
+    echo "  Alfred Quick Idea Capture workflow not found"
 fi
 
 # Remove focus-window.sh symlink (only if it points to our script)

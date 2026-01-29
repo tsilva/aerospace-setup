@@ -18,8 +18,8 @@
 ## ✨ Features
 
 - **One-command setup** - Install all Aerospace configs, scripts, and Alfred workflow
-- **Cursor window management** - Organize Cursor projects into numbered workspaces with `alt+c`
-- **Alfred integration** - Browse all repos and switch or open projects by typing `p <project>`
+- **Cursor window management** - Organize Cursor projects into numbered workspaces with `alt+shift+s`
+- **Alfred integration** - Browse all repos and switch or open projects with `alt+p`, capture ideas with `alt+shift+c`
 - **Project priorities** - Define which projects get lower workspace numbers
 - **Cross-platform paths** - Auto-detects Homebrew location (Apple Silicon or Intel)
 - **Notification integration** - Provides click-to-focus for [claude-code-notify](https://github.com/tsilva/claude-code-notify)
@@ -48,7 +48,7 @@ The installer will:
 2. Copy `aerospace.toml` to `~/.aerospace.toml`
 3. Install helper scripts to `~/.config/aerospace/`
 4. Create symlink `~/.claude/focus-window.sh` for notification integration
-5. Set up the Alfred workflow for project switching
+5. Set up Alfred workflows for project switching and idea capture
 6. Reload Aerospace configuration
 
 ## ⌨️ Keybindings
@@ -58,9 +58,10 @@ The installer will:
 | `alt+1-9` | Switch to workspace 1-9 |
 | `alt+shift+1-9` | Move window to workspace 1-9 |
 | `alt+←/→` | Previous/next workspace |
-| `alt+c` | Organize Cursor windows by priority |
+| `alt+shift+s` | Organize Cursor windows by priority |
+| `alt+p` | Open Alfred project switcher (`p` keyword) |
+| `alt+shift+c` | Open Alfred idea capture (`c` keyword) |
 | `alt+f` | Toggle fullscreen |
-| `p <project>` | Alfred: switch to or open Cursor project |
 
 ## 🗂️ Project Structure
 
@@ -78,8 +79,10 @@ aerospace-setup/
 │   ├── focus-window.sh           # Focus or open project (Alfred)
 │   └── notification-focus-window.sh  # Focus window by workspace name (notifications)
 └── alfred/
-    └── cursor-project-switcher/
-        └── info.plist            # Alfred workflow
+    ├── cursor-project-switcher/
+    │   └── info.plist            # Alfred project switcher workflow
+    └── quick-idea-capture/
+        └── info.plist            # Alfred idea capture workflow
 ```
 
 ## ⚙️ Configuration

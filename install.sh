@@ -170,14 +170,19 @@ echo
 # Install Alfred workflow
 if [ -n "$ALFRED_WORKFLOWS_DIR" ]; then
     echo "Installing Alfred workflow..."
+    # Cursor Project Switcher workflow
     WORKFLOW_DEST="$ALFRED_WORKFLOWS_DIR/user.workflow.cursor-project-switcher"
-
     mkdir -p "$WORKFLOW_DEST"
-
-    # Copy info.plist and replace __HOME__ placeholder
     sed "s|__HOME__|$HOME|g" "$SCRIPT_DIR/alfred/cursor-project-switcher/info.plist" > "$WORKFLOW_DEST/info.plist"
-    echo "✓ Installed Alfred workflow"
+    echo "✓ Installed Alfred workflow: Cursor Project Switcher"
     echo "  Use 'p <project>' in Alfred to switch Cursor windows"
+
+    # Quick Idea Capture workflow
+    CAPTURE_DEST="$ALFRED_WORKFLOWS_DIR/user.workflow.quick-idea-capture"
+    mkdir -p "$CAPTURE_DEST"
+    sed "s|__HOME__|$HOME|g" "$SCRIPT_DIR/alfred/quick-idea-capture/info.plist" > "$CAPTURE_DEST/info.plist"
+    echo "✓ Installed Alfred workflow: Quick Idea Capture"
+    echo "  Use 'c <idea>' in Alfred to capture thoughts"
 fi
 echo
 
@@ -195,10 +200,11 @@ echo "========================="
 echo "Installation complete!"
 echo
 echo "Keybindings:"
-echo "  alt+1-9     Switch to workspace"
-echo "  alt+c       Organize Cursor windows"
-echo "  alt+f       Toggle fullscreen"
-echo "  p <project> Alfred: switch to Cursor project"
+echo "  alt+1-9       Switch to workspace"
+echo "  alt+shift+s   Organize Cursor windows"
+echo "  alt+p         Alfred: switch to Cursor project"
+echo "  alt+shift+c   Alfred: capture idea"
+echo "  alt+f         Toggle fullscreen"
 echo
 echo "Configuration files:"
 echo "  ~/.aerospace.toml                        Main config"
