@@ -23,7 +23,7 @@ aerospace reload-config
 
 **Installer Flow:** `install.sh` copies `aerospace.toml` to `~/.aerospace.toml`, scripts to `~/.config/aerospace/`, creates project priority file from template, and installs Alfred workflow with `$HOME` path substitution via sed.
 
-**Cursor Window Organization (`alt+shift+s`):** The `aerospace-fix-cursor.sh` script reads project priorities from `cursor-projects.txt`, queries all Cursor windows via `aerospace list-windows`, then assigns workspaces starting at 2 (workspace 1 is reserved for utility apps). Priority-listed projects get lower numbers; remaining projects are assigned alphabetically.
+**Cursor Window Organization (`alt+s`):** The `aerospace-fix-cursor.sh` script reads project priorities from `cursor-projects.txt`, queries all Cursor windows via `aerospace list-windows`, then assigns workspaces starting at 2 (workspace 1 is reserved for utility apps). Priority-listed projects get lower numbers; remaining projects are assigned alphabetically.
 
 **Alfred Integration:** Two Alfred workflows are installed. The **Cursor Project Switcher** (`p` keyword) uses `list-all-repos.sh` to scan `~/repos/tsilva/` for all repo directories and cross-references with open Cursor windows, outputting Alfred Script Filter JSON with open repos (showing workspace number) sorted first, then unopened repos alphabetically. `focus-window.sh` receives `open|<window-id>` to focus an existing window, or `new|<repo-path>` to open Cursor in the repo, run rearrange, and focus the new window. The **Quick Idea Capture** (`c` keyword) provides an Alfred keyword input that runs `capture home "{query}"` (requires the [capture](https://github.com/tsilva/capture) CLI to be installed separately).
 

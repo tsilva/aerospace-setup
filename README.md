@@ -18,7 +18,7 @@
 ## ✨ Features
 
 - **One-command setup** - Install all Aerospace configs, scripts, and Alfred workflow
-- **Cursor window management** - Organize Cursor projects into numbered workspaces with `alt+shift+s`
+- **Cursor window management** - Organize Cursor projects into numbered workspaces with `alt+s`
 - **Alfred integration** - Browse all repos and switch or open projects with `alt+p`, capture ideas with `alt+shift+c`
 - **Project priorities** - Define which projects get lower workspace numbers
 - **Cross-platform paths** - Auto-detects Homebrew location (Apple Silicon or Intel)
@@ -58,9 +58,9 @@ The installer will:
 | `alt+1-9` | Switch to workspace 1-9 |
 | `alt+shift+1-9` | Move window to workspace 1-9 |
 | `alt+←/→` | Previous/next workspace |
-| `alt+shift+s` | Organize Cursor windows by priority |
+| `alt+s` | Organize Cursor windows by priority |
 | `alt+p` | Open Alfred project switcher (`p` keyword) |
-| `alt+shift+c` | Open Alfred idea capture (`c` keyword) |
+| `alt+c` | Open Alfred idea capture (`c` keyword) |
 | `alt+f` | Toggle fullscreen |
 
 ## 🗂️ Project Structure

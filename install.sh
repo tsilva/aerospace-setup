@@ -201,9 +201,9 @@ echo "Installation complete!"
 echo
 echo "Keybindings:"
 echo "  alt+1-9       Switch to workspace"
-echo "  alt+shift+s   Organize Cursor windows"
+echo "  alt+s         Organize Cursor windows"
 echo "  alt+p         Alfred: switch to Cursor project"
-echo "  alt+shift+c   Alfred: capture idea"
+echo "  alt+c         Alfred: capture idea"
 echo "  alt+f         Toggle fullscreen"
 echo
 echo "Configuration files:"
