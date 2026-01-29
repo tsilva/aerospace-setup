@@ -25,7 +25,7 @@ aerospace reload-config
 
 **Cursor Window Organization (`alt+c`):** The `aerospace-fix-cursor.sh` script reads project priorities from `cursor-projects.txt`, queries all Cursor windows via `aerospace list-windows`, then assigns workspaces starting at 2 (workspace 1 is reserved for utility apps). Priority-listed projects get lower numbers; remaining projects are assigned alphabetically.
 
-**Alfred Integration:** `list-cursor-windows.sh` outputs Alfred Script Filter JSON format. It extracts project names from Cursor window titles (format: `filename — project-name`), sorted by workspace number. `focus-window.sh` receives the selected window ID as argument.
+**Alfred Integration:** `list-all-repos.sh` scans `~/repos/tsilva/` for all repo directories and cross-references with open Cursor windows. It outputs Alfred Script Filter JSON with open repos (showing workspace number) sorted first, then unopened repos alphabetically. `focus-window.sh` receives `open|<window-id>` to focus an existing window, or `new|<repo-path>` to open Cursor in the repo, run rearrange, and focus the new window.
 
 **Binary Detection:** All scripts auto-detect aerospace location via `command -v`, with fallbacks to `/opt/homebrew/bin/` (Apple Silicon) and `/usr/local/bin/` (Intel).
 

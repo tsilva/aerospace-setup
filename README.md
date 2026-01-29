@@ -19,7 +19,7 @@
 
 - **One-command setup** - Install all Aerospace configs, scripts, and Alfred workflow
 - **Cursor window management** - Organize Cursor projects into numbered workspaces with `alt+c`
-- **Alfred integration** - Switch to any Cursor project by typing `p <project>`
+- **Alfred integration** - Browse all repos and switch or open projects by typing `p <project>`
 - **Project priorities** - Define which projects get lower workspace numbers
 - **Cross-platform paths** - Auto-detects Homebrew location (Apple Silicon or Intel)
 - **Notification integration** - Provides click-to-focus for [claude-code-notify](https://github.com/tsilva/claude-code-notify)
@@ -60,7 +60,7 @@ The installer will:
 | `alt+←/→` | Previous/next workspace |
 | `alt+c` | Organize Cursor windows by priority |
 | `alt+f` | Toggle fullscreen |
-| `p <project>` | Alfred: switch to Cursor project |
+| `p <project>` | Alfred: switch to or open Cursor project |
 
 ## 🗂️ Project Structure
 
@@ -73,8 +73,9 @@ aerospace-setup/
 │   └── cursor-projects.txt.example  # Project priority template
 ├── scripts/
 │   ├── aerospace-fix-cursor.sh   # Organize Cursor windows
-│   ├── list-cursor-windows.sh    # Alfred script filter
-│   ├── focus-window.sh           # Focus window by ID (Alfred)
+│   ├── list-all-repos.sh         # Alfred script filter (all repos)
+│   ├── list-cursor-windows.sh    # List open Cursor windows
+│   ├── focus-window.sh           # Focus or open project (Alfred)
 │   └── notification-focus-window.sh  # Focus window by workspace name (notifications)
 └── alfred/
     └── cursor-project-switcher/
