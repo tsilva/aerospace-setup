@@ -30,6 +30,20 @@ while [ $i -lt 30 ]; do
     i=$((i + 1))
 done
 
+# Get expected window count from System Events (the source of truth)
+EXPECTED_COUNT=$(osascript -e 'tell application "System Events" to count of windows of process "Cursor"' 2>/dev/null)
+EXPECTED_COUNT=${EXPECTED_COUNT:-0}
+
+# Poll until aerospace sees all windows (up to 3 seconds)
+# This is critical - aerospace's window tree lags behind macOS accessibility API
+i=0
+while [ $i -lt 30 ]; do
+    AEROSPACE_COUNT=$("$AEROSPACE" list-windows --all | grep -c "| Cursor" || echo "0")
+    [ "$AEROSPACE_COUNT" -ge "$EXPECTED_COUNT" ] && break
+    sleep 0.1
+    i=$((i + 1))
+done
+
 # Read project priority order from config file
 CONFIG_FILE="$HOME/.config/aerospace/cursor-projects.txt"
 if [ ! -f "$CONFIG_FILE" ]; then
