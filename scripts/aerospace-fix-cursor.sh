@@ -9,6 +9,7 @@ if [ ! -x "$AEROSPACE" ]; then
 fi
 
 # Unminimize all Cursor windows before organizing
+# Note: macOS animates this - enable "Reduce Motion" in Accessibility settings for faster restore
 osascript -e '
 tell application "System Events"
     tell process "Cursor"
@@ -20,8 +21,14 @@ tell application "System Events"
 end tell
 ' 2>/dev/null
 
-# Small delay to allow windows to restore
-sleep 0.3
+# Poll until all windows are unminimized (up to 3 seconds)
+i=0
+while [ $i -lt 30 ]; do
+    MINIMIZED_COUNT=$(osascript -e 'tell application "System Events" to tell process "Cursor" to count of (windows whose value of attribute "AXMinimized" is true)' 2>/dev/null)
+    [ "${MINIMIZED_COUNT:-0}" = "0" ] && break
+    sleep 0.1
+    i=$((i + 1))
+done
 
 # Read project priority order from config file
 CONFIG_FILE="$HOME/.config/aerospace/cursor-projects.txt"
