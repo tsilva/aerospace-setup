@@ -8,6 +8,21 @@ if [ ! -x "$AEROSPACE" ]; then
     AEROSPACE="/usr/local/bin/aerospace"
 fi
 
+# Unminimize all Cursor windows before organizing
+osascript -e '
+tell application "System Events"
+    tell process "Cursor"
+        set minimizedWindows to (windows whose value of attribute "AXMinimized" is true)
+        repeat with w in minimizedWindows
+            set value of attribute "AXMinimized" of w to false
+        end repeat
+    end tell
+end tell
+' 2>/dev/null
+
+# Small delay to allow windows to restore
+sleep 0.3
+
 # Read project priority order from config file
 CONFIG_FILE="$HOME/.config/aerospace/cursor-projects.txt"
 if [ ! -f "$CONFIG_FILE" ]; then

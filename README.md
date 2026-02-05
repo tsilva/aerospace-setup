@@ -7,7 +7,7 @@
 [![macOS](https://img.shields.io/badge/macOS-Sonoma+-black?logo=apple)](https://github.com/nikitabobko/AeroSpace)
 [![Shell](https://img.shields.io/badge/Shell-Bash-4EAA25?logo=gnu-bash&logoColor=white)](https://github.com/tsilva/aerospace-setup/tree/main/scripts)
 
-**🚀 Portable Aerospace configuration with Cursor project switching via Alfred**
+**🚀 Portable Aerospace configuration with Cursor project switching via Alfred ⚡**
 
 [Installation](#-installation) · [Features](#-features) · [Configuration](#%EF%B8%8F-configuration)
 
