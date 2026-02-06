@@ -32,14 +32,14 @@ fi
 echo
 
 # Re-enable macOS animations (before scripts are deleted)
-echo "Restoring macOS animations..."
-defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool true
-defaults write com.apple.dock expose-animation-duration -float 0.1
-defaults delete com.apple.dock autohide-delay 2>/dev/null || true
-defaults delete com.apple.dock autohide-time-modifier 2>/dev/null || true
-defaults delete NSGlobalDomain NSWindowResizeTime 2>/dev/null || true
-killall Dock 2>/dev/null || true
-echo "✓ macOS animations restored"
+TOGGLE_SCRIPT="$AEROSPACE_CONFIG_DIR/toggle-animations.sh"
+if [ -x "$TOGGLE_SCRIPT" ]; then
+    echo "Restoring macOS animations..."
+    "$TOGGLE_SCRIPT" on
+    echo "✓ macOS animations restored"
+else
+    echo "⚠ Animation toggle script not found, skipping animation restore"
+fi
 
 # Remove aerospace.toml
 if [ -f "$HOME/.aerospace.toml" ]; then

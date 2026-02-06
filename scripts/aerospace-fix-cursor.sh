@@ -9,7 +9,7 @@ if [ ! -x "$AEROSPACE" ]; then
 fi
 
 # Unminimize all Cursor windows before organizing
-# Note: macOS animates this - enable "Reduce Motion" in Accessibility settings for faster restore
+# Note: run toggle-animations.sh off to disable minimize/unminimize animations
 osascript -e '
 tell application "System Events"
     tell process "Cursor"

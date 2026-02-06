@@ -219,6 +219,18 @@ read -p "Disable macOS animations for a snappier experience? (y/N): " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     "$AEROSPACE_CONFIG_DIR/toggle-animations.sh" off
+    # Check if Reduce Motion needs manual setup (SIP-protected on macOS 26+)
+    REDUCE_MOTION=$(defaults read com.apple.Accessibility ReduceMotionEnabled 2>/dev/null)
+    if [ "$REDUCE_MOTION" != "1" ]; then
+        echo
+        echo "To also disable minimize/unminimize animations, enable Reduce Motion manually:"
+        echo "  System Settings > Accessibility > Display > Reduce Motion"
+        read -p "Open System Settings now? (y/N): " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            open "x-apple.systempreferences:com.apple.Accessibility-Settings.extension"
+        fi
+    fi
 fi
 echo
 
