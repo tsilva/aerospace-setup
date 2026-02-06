@@ -68,6 +68,35 @@ fi
 
 echo
 
+# Check for existing installation
+OVERWRITE_EXISTING=""
+EXISTING_FILES=""
+
+if [ -f "$HOME/.aerospace.toml" ]; then
+    EXISTING_FILES="$EXISTING_FILES ~/.aerospace.toml"
+fi
+
+for script in "$SCRIPT_DIR/scripts/"*.sh; do
+    script_name=$(basename "$script")
+    if [ -f "$AEROSPACE_CONFIG_DIR/$script_name" ]; then
+        EXISTING_FILES="$EXISTING_FILES $script_name"
+        break  # Only need to find one to know there's an existing install
+    fi
+done
+
+if [ -n "$EXISTING_FILES" ]; then
+    echo "Existing installation detected."
+    read -p "Overwrite existing files? (y/N): " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        OVERWRITE_EXISTING="y"
+    else
+        OVERWRITE_EXISTING="n"
+        echo "  Existing files will be preserved"
+    fi
+    echo
+fi
+
 # Create directories
 echo "Creating directories..."
 mkdir -p "$AEROSPACE_CONFIG_DIR"
@@ -79,10 +108,7 @@ echo
 # Copy aerospace.toml
 echo "Installing aerospace.toml..."
 if [ -f "$HOME/.aerospace.toml" ]; then
-    echo "  Existing config found at ~/.aerospace.toml"
-    read -p "  Overwrite? (y/N): " -n 1 -r
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
+    if [ "$OVERWRITE_EXISTING" = "y" ]; then
         cp "$SCRIPT_DIR/config/aerospace.toml" "$HOME/.aerospace.toml"
         echo "✓ Installed ~/.aerospace.toml"
     else
@@ -100,15 +126,12 @@ for script in "$SCRIPT_DIR/scripts/"*.sh; do
     script_name=$(basename "$script")
     dest="$AEROSPACE_CONFIG_DIR/$script_name"
     if [ -f "$dest" ]; then
-        echo "  Existing script: $script_name"
-        read -p "  Overwrite? (y/N): " -n 1 -r
-        echo
-        if [[ $REPLY =~ ^[Yy]$ ]]; then
+        if [ "$OVERWRITE_EXISTING" = "y" ]; then
             cp "$script" "$dest"
             chmod +x "$dest"
             echo "✓ Installed $script_name"
         else
-            echo "  Skipped"
+            echo "  Skipped $script_name (keeping existing)"
         fi
     else
         cp "$script" "$dest"
@@ -139,27 +162,21 @@ if [ -L "$FOCUS_SYMLINK" ]; then
     if [ "$CURRENT_TARGET" = "$FOCUS_TARGET" ]; then
         echo "✓ Symlink already exists: $FOCUS_SYMLINK -> $FOCUS_TARGET"
     else
-        echo "  Existing symlink points to: $CURRENT_TARGET"
-        read -p "  Replace with aerospace-setup symlink? (y/N): " -n 1 -r
-        echo
-        if [[ $REPLY =~ ^[Yy]$ ]]; then
+        if [ "$OVERWRITE_EXISTING" = "y" ]; then
             rm "$FOCUS_SYMLINK"
             ln -s "$FOCUS_TARGET" "$FOCUS_SYMLINK"
             echo "✓ Created symlink: $FOCUS_SYMLINK -> $FOCUS_TARGET"
         else
-            echo "  Skipped (keeping existing symlink)"
+            echo "  Skipped (keeping existing symlink to: $CURRENT_TARGET)"
         fi
     fi
 elif [ -f "$FOCUS_SYMLINK" ]; then
-    echo "  Existing file found at $FOCUS_SYMLINK"
-    read -p "  Replace with symlink? (y/N): " -n 1 -r
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
+    if [ "$OVERWRITE_EXISTING" = "y" ]; then
         rm "$FOCUS_SYMLINK"
         ln -s "$FOCUS_TARGET" "$FOCUS_SYMLINK"
         echo "✓ Created symlink: $FOCUS_SYMLINK -> $FOCUS_TARGET"
     else
-        echo "  Skipped (keeping existing file)"
+        echo "  Skipped (keeping existing file at $FOCUS_SYMLINK)"
     fi
 else
     ln -s "$FOCUS_TARGET" "$FOCUS_SYMLINK"
