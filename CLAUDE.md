@@ -27,6 +27,8 @@ aerospace reload-config
 
 **Alfred Integration:** Two Alfred workflows are installed. The **Cursor Project Switcher** (`p` keyword) uses `list-all-repos.sh` to scan `~/repos/tsilva/` for all repo directories and cross-references with open Cursor windows, outputting Alfred Script Filter JSON with open repos (showing workspace number) sorted first, then unopened repos alphabetically. `focus-window.sh` receives `open|<window-id>` to focus an existing window, or `new|<repo-path>` to open Cursor in the repo, run rearrange, and focus the new window. The **Quick Idea Capture** (`c` keyword) provides an Alfred keyword input that runs `capture home "{query}"` (requires the [capture](https://github.com/tsilva/capture) CLI to be installed separately).
 
+**Animation Toggle:** The `toggle-animations.sh` script disables/enables macOS animations (window open/close, Mission Control, Dock auto-hide, Launchpad, Finder, Quick Look, rubber-band scrolling, Mail). The installer offers to disable animations after setup; the uninstaller offers to re-enable them before removing files.
+
 **Binary Detection:** All scripts auto-detect aerospace location via `command -v`, with fallbacks to `/opt/homebrew/bin/` (Apple Silicon) and `/usr/local/bin/` (Intel).
 
 ## Key Files After Installation

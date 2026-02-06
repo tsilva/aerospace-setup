@@ -213,6 +213,15 @@ else
 fi
 echo
 
+# Offer to disable macOS animations
+echo "macOS animations can slow down the tiling window experience."
+read -p "Disable macOS animations for a snappier experience? (y/N): " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    "$AEROSPACE_CONFIG_DIR/toggle-animations.sh" off
+fi
+echo
+
 echo "========================="
 echo "Installation complete!"
 echo
