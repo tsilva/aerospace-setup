@@ -37,10 +37,17 @@ done < <("$AEROSPACE" list-windows --all --format '%{window-id}|%{app-name}|%{wi
 items=""
 
 # Scan all repo directories
-for repo_dir in "$REPOS_DIR"/*/; do
-    [ -d "$repo_dir" ] || continue
+for repo_dir in "$REPOS_DIR"/*/ "$REPOS_DIR"/.[!.]*/; do
+    [ -d "$repo_dir/.git" ] || continue
     repo_name="$(basename "$repo_dir")"
     repo_escaped="${repo_name//\"/\\\"}"
+
+    # Check for repo logo
+    if [ -f "${repo_dir}logo.png" ]; then
+        icon_json=",\"icon\":{\"path\":\"${repo_dir}logo.png\"}"
+    else
+        icon_json=""
+    fi
 
     # Check if this repo has an open Cursor window
     found=0
@@ -48,7 +55,7 @@ for repo_dir in "$REPOS_DIR"/*/; do
         if [ "${open_projects[$i]}" = "$repo_name" ]; then
             wid="${open_window_ids[$i]}"
             ws="${open_workspaces[$i]}"
-            items="${items}0|${ws}|{\"title\":\"${repo_escaped}\",\"subtitle\":\"Workspace ${ws}\",\"arg\":\"open|${wid}\",\"match\":\"${repo_escaped}\"}
+            items="${items}0|${ws}|{\"title\":\"${repo_escaped}\",\"subtitle\":\"Workspace ${ws}\",\"arg\":\"open|${wid}\",\"match\":\"${repo_escaped}\"${icon_json}}
 "
             found=1
             break
@@ -59,7 +66,7 @@ for repo_dir in "$REPOS_DIR"/*/; do
         path_escaped="${repo_dir//\"/\\\"}"
         # Remove trailing slash
         path_escaped="${path_escaped%/}"
-        items="${items}1|${repo_name}|{\"title\":\"${repo_escaped}\",\"subtitle\":\"Not open\",\"arg\":\"new|${path_escaped}\",\"match\":\"${repo_escaped}\"}
+        items="${items}1|${repo_name}|{\"title\":\"${repo_escaped}\",\"subtitle\":\"Not open\",\"arg\":\"new|${path_escaped}\",\"match\":\"${repo_escaped}\"${icon_json}}
 "
     fi
 done
