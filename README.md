@@ -19,7 +19,7 @@
 
 - **One-command setup** - Install all Aerospace configs, scripts, and Alfred workflow
 - **Cursor window management** - Organize Cursor projects into numbered workspaces with `alt+s`
-- **Alfred integration** - Browse all repos and switch or open projects with `alt+p`, capture ideas with `alt+c`, add notes to markdown files with `alt+n`
+- **Alfred integration** - Browse all repos and switch or open projects with `alt+p`, add notes and capture ideas with `alt+c`
 - **Project priorities** - Define which projects get lower workspace numbers
 - **Cross-platform paths** - Auto-detects Homebrew location (Apple Silicon or Intel)
 - **Notification integration** - Provides click-to-focus for [claude-code-notify](https://github.com/tsilva/claude-code-notify)
@@ -48,7 +48,7 @@ The installer will:
 2. Copy `aerospace.toml` to `~/.aerospace.toml`
 3. Install helper scripts to `~/.config/aerospace/`
 4. Create symlink `~/.claude/focus-window.sh` for notification integration
-5. Set up Alfred workflows for project switching, idea capture, and note capture
+5. Set up Alfred workflows for project switching and note capture
 6. Reload Aerospace configuration
 
 ## ⌨️ Keybindings
@@ -60,8 +60,7 @@ The installer will:
 | `alt+←/→` | Previous/next workspace |
 | `alt+s` | Organize Cursor windows by priority |
 | `alt+p` | Open Alfred project switcher (`p` keyword) |
-| `alt+c` | Open Alfred idea capture (`c` keyword) |
-| `alt+n` | Open Alfred note capture (`n` keyword) |
+| `alt+c` | Open Alfred notes & capture (`c` keyword) |
 | `alt+f` | Toggle fullscreen |
 
 ## 🗂️ Project Structure
@@ -85,8 +84,6 @@ aerospace-setup/
 └── alfred/
     ├── cursor-project-switcher/
     │   └── info.plist            # Alfred project switcher workflow
-    ├── quick-idea-capture/
-    │   └── info.plist            # Alfred idea capture workflow
     └── md-note-capture/
         └── info.plist            # Alfred note capture workflow
 ```
@@ -113,7 +110,7 @@ Edit `~/.config/aerospace/notes-dir.txt` to set the folder where repo notes are 
 ~/Documents/Notes
 ```
 
-Use `alt+n` (or type `n` in Alfred) to list repos, select one, enter text in the dialog, and it gets prepended to `<notes-dir>/<repo-name>.md` (created automatically if missing).
+Use `alt+c` (or type `c` in Alfred) to list repos and an `@email` option. Select a repo to enter text that gets prepended to `<notes-dir>/<repo-name>.md` (created automatically if missing), or select `@email` to quickly capture an idea via the [capture](https://github.com/tsilva/capture) CLI.
 
 ### Window Auto-Assignment
 

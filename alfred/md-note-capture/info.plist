@@ -46,7 +46,7 @@
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>keyword</key>
-				<string>n</string>
+				<string>c</string>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyalinitially</key>
@@ -104,7 +104,7 @@
 		</dict>
 	</array>
 	<key>readme</key>
-	<string>Type "n" followed by a file name to select a markdown file.
+	<string>Type "c" followed by a file name to select a markdown file.
 A dialog will appear to enter your note, which is prepended to the file.</string>
 	<key>uidata</key>
 	<dict>

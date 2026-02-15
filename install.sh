@@ -205,19 +205,12 @@ if [ -n "$ALFRED_WORKFLOWS_DIR" ]; then
     echo "✓ Installed Alfred workflow: Cursor Project Switcher"
     echo "  Use 'p <project>' in Alfred to switch Cursor windows"
 
-    # Quick Idea Capture workflow
-    CAPTURE_DEST="$ALFRED_WORKFLOWS_DIR/user.workflow.quick-idea-capture"
-    mkdir -p "$CAPTURE_DEST"
-    sed "s|__HOME__|$HOME|g" "$SCRIPT_DIR/alfred/quick-idea-capture/info.plist" > "$CAPTURE_DEST/info.plist"
-    echo "✓ Installed Alfred workflow: Quick Idea Capture"
-    echo "  Use 'c <idea>' in Alfred to capture thoughts"
-
     # MD Note Capture workflow
     NOTES_DEST="$ALFRED_WORKFLOWS_DIR/user.workflow.md-note-capture"
     mkdir -p "$NOTES_DEST"
     sed "s|__HOME__|$HOME|g" "$SCRIPT_DIR/alfred/md-note-capture/info.plist" > "$NOTES_DEST/info.plist"
-    echo "  Installed Alfred workflow: MD Note Capture"
-    echo "  Use 'n <file>' in Alfred to add notes to markdown files"
+    echo "✓ Installed Alfred workflow: MD Note Capture"
+    echo "  Use 'c' in Alfred for notes & quick capture"
 fi
 echo
 
@@ -259,8 +252,7 @@ echo "Keybindings:"
 echo "  alt+1-9       Switch to workspace"
 echo "  alt+s         Organize Cursor windows"
 echo "  alt+p         Alfred: switch to Cursor project"
-echo "  alt+c         Alfred: capture idea"
-echo "  alt+n         Alfred: add note to markdown file"
+echo "  alt+c         Alfred: notes & capture"
 echo "  alt+f         Toggle fullscreen"
 echo
 echo "Configuration files:"

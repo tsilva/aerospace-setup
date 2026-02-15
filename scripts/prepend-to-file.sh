@@ -9,6 +9,22 @@ if [ -z "$REPO_NAME" ]; then
     exit 0
 fi
 
+# Handle @email: show dialog and run capture CLI
+if [ "$REPO_NAME" = "@email" ]; then
+    IDEA=$(osascript -e "
+        try
+            set result to display dialog \"Capture idea:\" default answer \"\" buttons {\"Cancel\", \"Capture\"} default button \"Capture\" with title \"Quick Capture\"
+            return text returned of result
+        on error
+            return \"\"
+        end try
+    " 2>/dev/null)
+    if [ -n "$IDEA" ]; then
+        "$HOME/.local/bin/capture" home "$IDEA"
+    fi
+    exit 0
+fi
+
 CONFIG_FILE="$HOME/.config/aerospace/notes-dir.txt"
 
 # Read notes directory from config (skip comments and empty lines)
