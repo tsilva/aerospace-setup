@@ -43,6 +43,7 @@ alt-s = 'exec-and-forget ~/.config/aerospace/aerospace-fix-cursor.sh'
 # Alfred workflows
 alt-p = 'exec-and-forget ~/.config/aerospace/alfred-search.sh p'
 alt-c = 'exec-and-forget ~/.config/aerospace/alfred-search.sh c'
+alt-n = 'exec-and-forget ~/.config/aerospace/alfred-search.sh n'
 
 # Fullscreen toggle (hides other windows in workspace)
 alt-f = 'fullscreen'

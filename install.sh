@@ -152,6 +152,17 @@ else
 fi
 echo
 
+# Handle notes-dir.txt
+echo "Setting up notes-dir.txt..."
+if [ -f "$AEROSPACE_CONFIG_DIR/notes-dir.txt" ]; then
+    echo "  Existing notes-dir.txt found (keeping your customizations)"
+else
+    cp "$SCRIPT_DIR/config/notes-dir.txt.example" "$AEROSPACE_CONFIG_DIR/notes-dir.txt"
+    echo "  Created notes-dir.txt from template"
+    echo "  Edit $AEROSPACE_CONFIG_DIR/notes-dir.txt to set your notes folder path"
+fi
+echo
+
 # Create symlink for Claude Code notification integration
 echo "Setting up Claude Code integration..."
 FOCUS_SYMLINK="$CLAUDE_DIR/focus-window.sh"
@@ -200,6 +211,13 @@ if [ -n "$ALFRED_WORKFLOWS_DIR" ]; then
     sed "s|__HOME__|$HOME|g" "$SCRIPT_DIR/alfred/quick-idea-capture/info.plist" > "$CAPTURE_DEST/info.plist"
     echo "✓ Installed Alfred workflow: Quick Idea Capture"
     echo "  Use 'c <idea>' in Alfred to capture thoughts"
+
+    # MD Note Capture workflow
+    NOTES_DEST="$ALFRED_WORKFLOWS_DIR/user.workflow.md-note-capture"
+    mkdir -p "$NOTES_DEST"
+    sed "s|__HOME__|$HOME|g" "$SCRIPT_DIR/alfred/md-note-capture/info.plist" > "$NOTES_DEST/info.plist"
+    echo "  Installed Alfred workflow: MD Note Capture"
+    echo "  Use 'n <file>' in Alfred to add notes to markdown files"
 fi
 echo
 
@@ -242,10 +260,12 @@ echo "  alt+1-9       Switch to workspace"
 echo "  alt+s         Organize Cursor windows"
 echo "  alt+p         Alfred: switch to Cursor project"
 echo "  alt+c         Alfred: capture idea"
+echo "  alt+n         Alfred: add note to markdown file"
 echo "  alt+f         Toggle fullscreen"
 echo
 echo "Configuration files:"
 echo "  ~/.aerospace.toml                        Main config"
 echo "  ~/.config/aerospace/cursor-projects.txt  Project priorities"
+echo "  ~/.config/aerospace/notes-dir.txt        Notes folder path"
 echo "  ~/.config/aerospace/*.sh                 Helper scripts"
 echo "  ~/.claude/focus-window.sh                Notification focus (symlink)"
