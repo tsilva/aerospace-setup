@@ -1,18 +1,45 @@
 #!/bin/bash
-# Show a text input dialog and prepend the entered text to a markdown file
-# Usage: prepend-to-file.sh <file-path>
+# Show a text input dialog and prepend the entered text to a repo's markdown note
+# Usage: prepend-to-file.sh <repo-name>
+# Reads notes directory from ~/.config/aerospace/notes-dir.txt
+# Creates <notes-dir>/<repo-name>.md if it doesn't exist
 
-FILE_PATH="$1"
-if [ -z "$FILE_PATH" ] || [ ! -f "$FILE_PATH" ]; then
+REPO_NAME="$1"
+if [ -z "$REPO_NAME" ]; then
     exit 0
 fi
 
-FILENAME="$(basename "$FILE_PATH")"
+CONFIG_FILE="$HOME/.config/aerospace/notes-dir.txt"
+
+# Read notes directory from config (skip comments and empty lines)
+NOTES_DIR=""
+if [ -f "$CONFIG_FILE" ]; then
+    while IFS= read -r line || [ -n "$line" ]; do
+        case "$line" in
+            \#*|"") continue ;;
+        esac
+        NOTES_DIR="$line"
+        break
+    done < "$CONFIG_FILE"
+fi
+
+# Expand ~ manually
+case "$NOTES_DIR" in
+    "~/"*) NOTES_DIR="$HOME/${NOTES_DIR#\~/}" ;;
+    "~") NOTES_DIR="$HOME" ;;
+esac
+
+if [ -z "$NOTES_DIR" ] || [ ! -d "$NOTES_DIR" ]; then
+    osascript -e 'display dialog "Notes directory not configured.\nEdit ~/.config/aerospace/notes-dir.txt" buttons {"OK"} default button "OK" with title "Error" with icon stop' 2>/dev/null
+    exit 0
+fi
+
+FILE_PATH="$NOTES_DIR/${REPO_NAME}.md"
 
 # Show text input dialog via osascript
 NOTE=$(osascript -e "
     try
-        set result to display dialog \"Add note to ${FILENAME}:\" default answer \"\" buttons {\"Cancel\", \"Add\"} default button \"Add\" with title \"Add Note\"
+        set result to display dialog \"Add note to ${REPO_NAME}.md:\" default answer \"\" buttons {\"Cancel\", \"Add\"} default button \"Add\" with title \"Add Note\"
         return text returned of result
     on error
         return \"\"
@@ -24,8 +51,13 @@ if [ -z "$NOTE" ]; then
     exit 0
 fi
 
-# Prepend text to file using temp file
-TMPFILE=$(mktemp)
-printf '%s\n\n' "$NOTE" > "$TMPFILE"
-cat "$FILE_PATH" >> "$TMPFILE"
-mv "$TMPFILE" "$FILE_PATH"
+# Create file if it doesn't exist
+if [ ! -f "$FILE_PATH" ]; then
+    printf '%s\n' "$NOTE" > "$FILE_PATH"
+else
+    # Prepend text to existing file using temp file
+    TMPFILE=$(mktemp)
+    printf '%s\n\n' "$NOTE" > "$TMPFILE"
+    cat "$FILE_PATH" >> "$TMPFILE"
+    mv "$TMPFILE" "$FILE_PATH"
+fi

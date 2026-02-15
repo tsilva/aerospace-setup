@@ -107,13 +107,13 @@ Projects listed first get lower workspace numbers (starting at workspace 2). Pro
 
 ### Notes Directory
 
-Edit `~/.config/aerospace/notes-dir.txt` to set the folder containing your markdown files:
+Edit `~/.config/aerospace/notes-dir.txt` to set the folder where repo notes are stored:
 
 ```
 ~/Documents/Notes
 ```
 
-Use `alt+n` (or type `n` in Alfred) to list files, select one, and prepend a note via a dialog box.
+Use `alt+n` (or type `n` in Alfred) to list repos, select one, enter text in the dialog, and it gets prepended to `<notes-dir>/<repo-name>.md` (created automatically if missing).
 
 ### Window Auto-Assignment
 
