@@ -131,3 +131,7 @@ Removes all installed files. Aerospace itself is not uninstalled.
 
 MIT
 
+
+## License
+
+MIT
