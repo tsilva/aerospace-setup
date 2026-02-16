@@ -25,7 +25,7 @@ aerospace reload-config
 
 **Cursor Window Organization (`alt+s`):** The `aerospace-fix-cursor.sh` script reads project priorities from `cursor-projects.txt`, queries all Cursor windows via `aerospace list-windows`, then assigns workspaces starting at 2 (workspace 1 is reserved for utility apps). Priority-listed projects get lower numbers; remaining projects are assigned alphabetically.
 
-**Alfred Integration:** Two Alfred workflows are installed. The **Cursor Project Switcher** (`p` keyword) uses `list-all-repos.sh` to scan `~/repos/tsilva/` for all repo directories and cross-references with open Cursor windows, outputting Alfred Script Filter JSON with open repos (showing workspace number) sorted first, then unopened repos alphabetically. `focus-window.sh` receives `open|<window-id>` to focus an existing window, or `new|<repo-path>` to open Cursor in the repo, run rearrange, and focus the new window. The **MD Note Capture** (`c` keyword) uses `list-md-files.sh` to list repos from `~/repos/tsilva/` (same scanning as the project switcher) with a special `@email` item at the top for quick idea capture. Selecting a repo shows an osascript dialog via `prepend-to-file.sh` and prepends the entered text to `<notes-dir>/<repo-name>.md` (configured via `notes-dir.txt`), creating the file if it doesn't exist. Selecting `@email` shows a dialog and runs `capture home "<text>"` via the [capture](https://github.com/tsilva/capture) CLI.
+**Alfred Integration:** The **Cursor Project Switcher** (`p` keyword) Alfred workflow uses `list-all-repos.sh` to scan `~/repos/tsilva/` for all repo directories and cross-references with open Cursor windows, outputting Alfred Script Filter JSON with open repos (showing workspace number) sorted first, then unopened repos alphabetically. `focus-window.sh` receives `open|<window-id>` to focus an existing window, or `new|<repo-path>` to open Cursor in the repo, run rearrange, and focus the new window.
 
 **Animation Toggle:** The `toggle-animations.sh` script disables/enables macOS animations: Reduce Motion (minimize/unminimize), window open/close, Mission Control, Dock auto-hide, minimize effect (scale vs genie), scroll animations, Quick Look panel, toolbar fullscreen, document revision, Finder column browser, Launchpad show/hide/page, Finder, Mail send/reply, and rubber-band scrolling. The installer offers to disable animations after setup; the uninstaller calls the toggle script to re-enable them before removing files.
 
@@ -35,7 +35,6 @@ aerospace reload-config
 
 - `~/.aerospace.toml` - Main Aerospace configuration
 - `~/.config/aerospace/cursor-projects.txt` - User's project priority list
-- `~/.config/aerospace/notes-dir.txt` - Notes folder path for MD Note Capture
 - `~/.config/aerospace/*.sh` - Helper scripts
 - `~/Library/Application Support/Alfred/Alfred.alfredpreferences/workflows/user.workflow.cursor-project-switcher/` - Alfred workflow
 

@@ -40,9 +40,8 @@ alt-left = 'workspace prev'
 # Sort/organize Cursor windows into workspaces
 alt-s = 'exec-and-forget ~/.config/aerospace/aerospace-fix-cursor.sh'
 
-# Alfred workflows
+# Alfred workflow
 alt-p = 'exec-and-forget ~/.config/aerospace/alfred-search.sh p'
-alt-c = 'exec-and-forget ~/.config/aerospace/alfred-search.sh c'
 
 # Fullscreen toggle (hides other windows in workspace)
 alt-f = 'fullscreen'

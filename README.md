@@ -19,7 +19,7 @@
 
 - **One-command setup** - Install all Aerospace configs, scripts, and Alfred workflow
 - **Cursor window management** - Organize Cursor projects into numbered workspaces with `alt+s`
-- **Alfred integration** - Browse all repos and switch or open projects with `alt+p`, add notes and capture ideas with `alt+c`
+- **Alfred integration** - Browse all repos and switch or open Cursor projects with `alt+p`
 - **Project priorities** - Define which projects get lower workspace numbers
 - **Cross-platform paths** - Auto-detects Homebrew location (Apple Silicon or Intel)
 - **Notification integration** - Provides click-to-focus for [claude-code-notify](https://github.com/tsilva/claude-code-notify)
@@ -48,7 +48,7 @@ The installer will:
 2. Copy `aerospace.toml` to `~/.aerospace.toml`
 3. Install helper scripts to `~/.config/aerospace/`
 4. Create symlink `~/.claude/focus-window.sh` for notification integration
-5. Set up Alfred workflows for project switching and note capture
+5. Set up Alfred workflow for project switching
 6. Reload Aerospace configuration
 
 ## ⌨️ Keybindings
@@ -60,7 +60,6 @@ The installer will:
 | `alt+←/→` | Previous/next workspace |
 | `alt+s` | Organize Cursor windows by priority |
 | `alt+p` | Open Alfred project switcher (`p` keyword) |
-| `alt+c` | Open Alfred notes & capture (`c` keyword) |
 | `alt+f` | Toggle fullscreen |
 
 ## 🗂️ Project Structure
@@ -71,21 +70,16 @@ aerospace-setup/
 ├── uninstall.sh                  # Cleanup script
 ├── config/
 │   ├── aerospace.toml            # Aerospace configuration
-│   ├── cursor-projects.txt.example  # Project priority template
-│   └── notes-dir.txt.example       # Notes directory template
+│   └── cursor-projects.txt.example  # Project priority template
 ├── scripts/
 │   ├── aerospace-fix-cursor.sh   # Organize Cursor windows
 │   ├── list-all-repos.sh         # Alfred script filter (all repos)
 │   ├── list-cursor-windows.sh    # List open Cursor windows
 │   ├── focus-window.sh           # Focus or open project (Alfred)
-│   ├── list-md-files.sh          # Alfred script filter (markdown files)
-│   ├── prepend-to-file.sh        # Prepend note to markdown file
 │   └── notification-focus-window.sh  # Focus window by workspace name (notifications)
 └── alfred/
-    ├── cursor-project-switcher/
-    │   └── info.plist            # Alfred project switcher workflow
-    └── md-note-capture/
-        └── info.plist            # Alfred note capture workflow
+    └── cursor-project-switcher/
+        └── info.plist            # Alfred project switcher workflow
 ```
 
 ## ⚙️ Configuration
@@ -101,16 +95,6 @@ experiments
 ```
 
 Projects listed first get lower workspace numbers (starting at workspace 2). Projects not listed are assigned to subsequent workspaces alphabetically.
-
-### Notes Directory
-
-Edit `~/.config/aerospace/notes-dir.txt` to set the folder where repo notes are stored:
-
-```
-~/Documents/Notes
-```
-
-Use `alt+c` (or type `c` in Alfred) to list repos and an `@email` option. Select a repo to enter text that gets prepended to `<notes-dir>/<repo-name>.md` (created automatically if missing), or select `@email` to quickly capture an idea via the [capture](https://github.com/tsilva/capture) CLI.
 
 ### Window Auto-Assignment
 
