@@ -39,6 +39,7 @@ items=""
 # Scan all repo directories
 for repo_dir in "$REPOS_DIR"/*/ "$REPOS_DIR"/.[!.]*/; do
     [ -d "$repo_dir/.git" ] || continue
+    [ -f "$repo_dir/.archived.md" ] && continue
     repo_name="$(basename "$repo_dir")"
     repo_escaped="${repo_name//\"/\\\"}"
 
