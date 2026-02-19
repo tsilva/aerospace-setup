@@ -21,7 +21,7 @@ aerospace reload-config
 
 ## Architecture
 
-**Installer Flow:** `install.sh` copies `aerospace.toml` to `~/.aerospace.toml`, scripts to `~/.config/aerospace/`, creates project priority file from template, and installs Alfred workflow with `$HOME` path substitution via sed.
+**Installer Flow:** `install.sh` copies `aerospace.toml` to `~/.aerospace.toml`, scripts to `~/.config/aerospace/`, creates project priority file from template, and installs Alfred workflow with `$HOME` path substitution via sed. No external dependencies are created - the setup is self-contained.
 
 **Cursor Window Organization (`alt+s`):** The `aerospace-fix-cursor.sh` script reads project priorities from `cursor-projects.txt`, queries all Cursor windows via `aerospace list-windows`, then assigns workspaces starting at 2 (workspace 1 is reserved for utility apps). Priority-listed projects get lower numbers; remaining projects are assigned alphabetically.
 

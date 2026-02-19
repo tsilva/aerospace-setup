@@ -7,7 +7,6 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 AEROSPACE_CONFIG_DIR="$HOME/.config/aerospace"
 ALFRED_WORKFLOWS_DIR="$HOME/Library/Application Support/Alfred/Alfred.alfredpreferences/workflows"
-CLAUDE_DIR="$HOME/.claude"
 
 # Color and formatting constants
 RED='\033[0;31m'
@@ -135,7 +134,7 @@ print_config_files() {
     printf "${GRAY}│${RESET} %-71s ${GRAY}│${RESET}\n" "~/.aerospace.toml                           Main config"
     printf "${GRAY}│${RESET} %-71s ${GRAY}│${RESET}\n" "~/.config/aerospace/cursor-projects.txt     Project priorities"
     printf "${GRAY}│${RESET} %-71s ${GRAY}│${RESET}\n" "~/.config/aerospace/*.sh                    Helper scripts"
-    printf "${GRAY}│${RESET} %-71s ${GRAY}│${RESET}\n" "~/.claude/focus-window.sh                   Notification focus"
+
     echo -e "${GRAY}└─────────────────────────────────────────────────────────────────┘${RESET}"
 }
 
@@ -227,9 +226,7 @@ fi
 # Create directories
 print_step 2 7 "Creating directories"
 mkdir -p "$AEROSPACE_CONFIG_DIR"
-mkdir -p "$CLAUDE_DIR"
 print_success "Created $AEROSPACE_CONFIG_DIR"
-print_success "Created $CLAUDE_DIR"
 echo
 
 # Copy aerospace.toml
@@ -279,36 +276,9 @@ else
 fi
 echo
 
-# Create symlink for Claude Code notification integration
+# Skip integrations step (previously handled claude notification focus)
 print_step 4 7 "Setting up integrations"
-FOCUS_SYMLINK="$CLAUDE_DIR/focus-window.sh"
-FOCUS_TARGET="$AEROSPACE_CONFIG_DIR/notification-focus-window.sh"
-
-if [ -L "$FOCUS_SYMLINK" ]; then
-    CURRENT_TARGET=$(readlink "$FOCUS_SYMLINK")
-    if [ "$CURRENT_TARGET" = "$FOCUS_TARGET" ]; then
-        print_success "Symlink already exists: $FOCUS_SYMLINK -> $FOCUS_TARGET"
-    else
-        if [ "$OVERWRITE_EXISTING" = "y" ]; then
-            rm "$FOCUS_SYMLINK"
-            ln -s "$FOCUS_TARGET" "$FOCUS_SYMLINK"
-            print_success "Created symlink: $FOCUS_SYMLINK -> $FOCUS_TARGET"
-        else
-            print_info "Skipped (keeping existing symlink to: $CURRENT_TARGET)"
-        fi
-    fi
-elif [ -f "$FOCUS_SYMLINK" ]; then
-    if [ "$OVERWRITE_EXISTING" = "y" ]; then
-        rm "$FOCUS_SYMLINK"
-        ln -s "$FOCUS_TARGET" "$FOCUS_SYMLINK"
-        print_success "Created symlink: $FOCUS_SYMLINK -> $FOCUS_TARGET"
-    else
-        print_info "Skipped (keeping existing file at $FOCUS_SYMLINK)"
-    fi
-else
-    ln -s "$FOCUS_TARGET" "$FOCUS_SYMLINK"
-    print_success "Created symlink: $FOCUS_SYMLINK -> $FOCUS_TARGET"
-fi
+print_info "No additional integrations required"
 echo
 
 # Install Alfred workflow
