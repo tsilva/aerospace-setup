@@ -38,6 +38,8 @@ aerospace reload-config
 - `~/.config/aerospace/*.sh` - Helper scripts
 - `~/Library/Application Support/Alfred/Alfred.alfredpreferences/workflows/user.workflow.cursor-project-switcher/` - Alfred workflow
 
+**Capture Integration:** The installer detects if [capture](https://github.com/tsilva/capture) is installed (`~/.config/capture/alfred-search.sh` exists) and offers to enable the `alt+c` keybinding for quick note capture. The keybinding is pre-configured in `aerospace.toml` but commented out - the installer uncomments it when capture is detected.
+
 ## Development Notes
 
 - Scripts must be bash 3.x compatible (macOS default) - avoid bash 4+ features like associative arrays

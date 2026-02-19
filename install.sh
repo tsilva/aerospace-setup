@@ -357,6 +357,23 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 fi
 echo
 
+# Check for capture and offer to enable keybinding
+if [ -f "$HOME/.config/capture/alfred-search.sh" ]; then
+    echo
+    print_info "Capture (quick note capture) detected!"
+    read -p "Enable alt+c keybinding for quick capture? (y/N): " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        # Uncomment the capture keybinding in aerospace.toml
+        sed -i '' 's/^# alt-c = '\''exec-and-forget ~\/.config\/capture\/alfred-search.sh c'\''$/alt-c = '\''exec-and-forget ~\/.config\/capture\/alfred-search.sh c'\''/' "$HOME/.aerospace.toml"
+        if "$AEROSPACE_PATH" reload-config 2>/dev/null; then
+            print_success "Enabled alt+c keybinding for capture"
+        else
+            print_warning "Keybinding added but could not reload config"
+        fi
+    fi
+fi
+
 print_step 7 7 "Installation complete"
 
 print_keybindings

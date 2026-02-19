@@ -61,6 +61,7 @@ The installer will:
 | `alt+s` | Organize Cursor windows by priority |
 | `alt+p` | Open Alfred project switcher (`p` keyword) |
 | `alt+f` | Toggle fullscreen |
+| `alt+c` | Quick capture (requires [capture](https://github.com/tsilva/capture)) |
 
 ## 🗂️ Project Structure
 
@@ -102,6 +103,16 @@ Apps are automatically moved to workspace 1:
 - Chrome, Obsidian, ChatGPT, Claude, Sublime Text, WhatsApp
 
 Edit `~/.aerospace.toml` to customize.
+
+## 📝 Capture Integration
+
+If you use [capture](https://github.com/tsilva/capture) for quick note-taking, the installer will detect it and offer to enable the `alt+c` keybinding. This lets you capture thoughts instantly while working in any workspace.
+
+The keybinding is commented out by default in `~/.aerospace.toml`. The installer will uncomment it if capture is detected, or you can enable it manually:
+
+```toml
+alt-c = 'exec-and-forget ~/.config/capture/alfred-search.sh c'
+```
 
 ## 🔔 Claude Code Notification Integration
 
