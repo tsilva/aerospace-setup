@@ -124,6 +124,13 @@ print_keybindings() {
     printf "${GRAY}│${RESET} %-15s ${GRAY}│${RESET} %-24s ${GRAY}│${RESET}\n" "alt+s" "Organize Cursor windows"
     printf "${GRAY}│${RESET} %-15s ${GRAY}│${RESET} %-24s ${GRAY}│${RESET}\n" "alt+p" "Alfred project switcher"
     printf "${GRAY}│${RESET} %-15s ${GRAY}│${RESET} %-24s ${GRAY}│${RESET}\n" "alt+f" "Toggle fullscreen"
+    # Show optional keybindings if enabled
+    if grep -q '^alt-n = ' "$HOME/.aerospace.toml" 2>/dev/null; then
+        printf "${GRAY}│${RESET} %-15s ${GRAY}│${RESET} %-24s ${GRAY}│${RESET}\n" "alt+n" "Notification cycling"
+    fi
+    if grep -q '^alt-c = ' "$HOME/.aerospace.toml" 2>/dev/null; then
+        printf "${GRAY}│${RESET} %-15s ${GRAY}│${RESET} %-24s ${GRAY}│${RESET}\n" "alt+c" "Quick capture"
+    fi
     echo -e "${GRAY}└─────────────────┴──────────────────────────┘${RESET}"
 }
 
@@ -326,6 +333,23 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     fi
 fi
 echo
+
+# Check for agentpong and offer to enable keybinding
+if [ -f "$HOME/.claude/pong.sh" ]; then
+    echo
+    print_info "Agentpong (notification cycling) detected!"
+    read -p "Enable alt+n keybinding for notification cycling? (y/N): " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        # Uncomment the agentpong keybinding in aerospace.toml
+        sed -i '' 's/^# alt-n = '\''exec-and-forget ~\/.claude\/pong.sh'\''$/alt-n = '\''exec-and-forget ~\/.claude\/pong.sh'\''/' "$HOME/.aerospace.toml"
+        if "$AEROSPACE_PATH" reload-config 2>/dev/null; then
+            print_success "Enabled alt+n keybinding for agentpong"
+        else
+            print_warning "Keybinding added but could not reload config"
+        fi
+    fi
+fi
 
 # Check for capture and offer to enable keybinding
 if [ -f "$HOME/.config/capture/alfred-search.sh" ]; then

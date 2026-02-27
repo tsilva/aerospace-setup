@@ -46,6 +46,10 @@ alt-p = 'exec-and-forget ~/.config/aerospace/alfred-search.sh p'
 # Fullscreen toggle (hides other windows in workspace)
 alt-f = 'fullscreen'
 
+# Agentpong integration (requires: https://github.com/tsilva/agentpong)
+# Uncomment the line below to enable alt+n for notification cycling
+# alt-n = 'exec-and-forget ~/.claude/pong.sh'
+
 # Capture integration (requires: https://github.com/tsilva/capture)
 # Uncomment the line below to enable alt+c for quick note capture
 # alt-c = 'exec-and-forget ~/.config/capture/alfred-search.sh c'
