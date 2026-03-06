@@ -1,3 +1,9 @@
+> [!WARNING]
+> ## Archived
+> This project is archived and no longer maintained.
+>
+> All functionality has been merged into [agentpong](https://github.com/tsilva/agentpong), which now includes Aerospace configuration management alongside its other features. Please refer to agentpong for the latest updates and continued development.
+
 <div align="center">
   <img src="logo.png" alt="aerospace-setup" width="512"/>
 
@@ -120,10 +126,5 @@ alt-c = 'exec-and-forget ~/.config/capture/alfred-search.sh c'
 Removes all installed files. Aerospace itself is not uninstalled.
 
 ## 📄 License
-
-MIT
-
-
-## License
 
 MIT
